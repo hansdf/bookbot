@@ -2,8 +2,9 @@ def main():
     text_path = "books/frankenstein.txt"
     text = book_text(text_path) 
 
-    num_of_words(text) 
-    num_of_chars(text)
+    word_count = num_of_words(text) 
+    char_count = num_of_chars(text)
+    text_report(word_count, char_count)
 
 def book_text(path):
     with open(path, 'r') as f:
@@ -12,7 +13,7 @@ def book_text(path):
 def num_of_words(any_string):
     words = any_string.split()
     counter = len(words) 
-    print(f"This text file contains {counter} words.")
+    return counter
 
 def num_of_chars(any_string):
     list_chars = list(any_string)
@@ -20,12 +21,19 @@ def num_of_chars(any_string):
     chars_dict = {}
     for char in chars:
         if char not in chars_dict:
-            chars_dict[char] = 0
+            chars_dict[char] = 1
         else:
             chars_dict[char] += 1
-    print("the following is a dictionary of how many times each character appears in the text:")
-    print(f"{chars_dict}")
+    return chars_dict
 
-
+def text_report(word_count, char_count):
+    print("This is the report of the content inside of the parsed text file")
+    print(f"There were {word_count} words in the document")
+    print("Each character appears with the frequencie:")
+    for char, count in char_count.items():
+        if char.isalpha() == False:
+            continue
+        else:
+            print(f"'{char}': {count}")
 
 main()
